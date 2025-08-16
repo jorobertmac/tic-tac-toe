@@ -1,6 +1,5 @@
 const Board = (function () {
   const board = []
-  newBoard()
   
   function newBoard (rows=3, columns=3) {
     for (let i=0; i<rows; i++) {
@@ -12,8 +11,10 @@ const Board = (function () {
     }
 
   function displayBoard () {
+    let countUp = 0
     const rows = board.map(row => row.map(function(sign) {
-      return sign !== null? `[${sign}]` : `[ ]`
+      countUp++
+      return sign !== null? `[${sign}]` : `[${countUp}]`
     }).join(""))
     console.log(rows.join("\n"))
   }
