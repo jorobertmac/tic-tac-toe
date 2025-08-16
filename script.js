@@ -121,7 +121,7 @@ const Game = (function () {
     playersTurn === playerX ? playersTurn = playerO : playersTurn = playerX
   }
 
-  const run = function () {
+  const gameLoop = function () {
     initialize()
     while (!gameOver) {
       turn()
@@ -130,6 +130,10 @@ const Game = (function () {
       changePlayersTurn()
     }
     alert(`Game Over!`)
+  }
+
+  const run = function () {
+    gameLoop()
   }
   
   
