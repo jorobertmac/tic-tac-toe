@@ -1,30 +1,40 @@
-const Gameboard = (function () {
-  const board = [
-    ["-", "-", "-"],
-    ["-", "-", "-"],
-    ["-", "-", "-"]
-  ]
-
+const Board = (function () {
+  const board = []
+  newBoard()
   
-  return {
-    show () {
-      console.log(`${board[0].join("")}\n${board[1].join("")}\n${board[2].join("")}`)
-    },
-
-    move: function (row, column, sign) {
-      board[row][column] = sign
-      this.show()
-    },
-
-    reset: function () {
-      for (let i=0; i<3; i++) {
-        for (let j=0; j<3; j++) {
-          board[i][j] = "-"
+  function newBoard (rows=3, columns=3) {
+    for (let i=0; i<rows; i++) {
+        board[i] = []
+        for (let j=0; j<columns; j++) {
+          board[i][j] = null
         }
       }
+    }
+
+  function displayBoard () {
+    const rows = board.map(row => row.map(function(sign) {
+      return sign !== null? `[${sign}]` : `[ ]`
+    }).join(""))
+    console.log(rows.join("\n"))
+  }
+
+  function getCurrentState () {
+    return structuredClone(board)
+  }
+
+  return {
+    getCurrentState,
+
+    displayBoard,
+    
+    reset: newBoard,
+
+    updateCell: function (row, column, sign) {
+      board[row][column] = sign
     },
-    validate: function () {
-      
+
+    isEmpty: function (row, column) {
+      return board[row][column] === null
     },
   }
 })()
@@ -47,4 +57,3 @@ const Player = (function () {
 
 //   }
 // })()
-
