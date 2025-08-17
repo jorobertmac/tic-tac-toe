@@ -56,6 +56,7 @@ const Game = (function () {
   let playerO
   let playersTurn
   let gameOver
+  let winner
 
   const boardLocation = (location) => {
     switch (location) {
@@ -100,7 +101,7 @@ const Game = (function () {
     return location
   }
 
-  const checkGameOver = (location) => {
+  const checkWin = (location) => {
     const b = Board.getCurrentState()
     const row = location.row
     const column = location.column
@@ -129,7 +130,8 @@ const Game = (function () {
       checkDiagonal()
     ) {
       gameOver = true
-      alert(`Game Over!`)
+      winner = playersTurn
+      alert(`${winner.playerName} Wins`)
     }
   }
 
@@ -150,8 +152,8 @@ const Game = (function () {
     while (!gameOver) {
       const location = turn()
       Board.displayBoard()
-      checkGameOver(location)
-      checkTie()
+      if (checkWin(location)) break
+      if (checkTie()) break
       changePlayersTurn()
     }
   }
