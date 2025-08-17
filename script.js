@@ -129,6 +129,15 @@ const Game = (function () {
       checkDiagonal()
     ) {
       gameOver = true
+      alert(`Game Over!`)
+    }
+  }
+
+  const checkTie = () => {
+    const marks = [...Board.getCurrentState()[0],...Board.getCurrentState()[1],...Board.getCurrentState()[2]]
+    if (!marks.includes(null)) {
+      gameOver = true
+      alert("Tie Game!")
     }
   }
 
@@ -142,9 +151,9 @@ const Game = (function () {
       const location = turn()
       Board.displayBoard()
       checkGameOver(location)
+      checkTie()
       changePlayersTurn()
     }
-    alert(`Game Over!`)
   }
 
   const run = function () {
