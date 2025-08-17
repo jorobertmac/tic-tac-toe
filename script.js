@@ -97,21 +97,36 @@ const Game = (function () {
     if (Board.isEmpty(location.row, location.column)) {
       Board.updateCell(location.row, location.column, playersTurn.playerSign)
     }
+    return location
   }
 
-  const checkGameOver = () => {
+  const checkGameOver = (location) => {
     const b = Board.getCurrentState()
+    const row = location.row
+    const column = location.column
+
+    const checkRow = function () {
+      return b[row][0] === b[row][1] && b[row][0] === b[row][2]
+    }
+
+    const checkColumn = function () {
+      return b[0][column] === b[1][column] && b[0][column] === b[2][column]
+    }
+
+    const checkDiagonal = function () {
+      if (["11"].includes(`${row}${column}`)){
+        return (b[0][0] === b[1][1] && b[0][0] === b[2][2]) || (b[0][2] === b[1][1] && b[0][2] === b[2][0])
+      } else if (["00","22"].includes(`${row}${column}`)) {
+        return b[0][0] === b[1][1] && b[0][0] === b[2][2]
+      } else if (["02","20"].includes(`${row}${column}`)) {
+        return b[0][2] === b[1][1] && b[0][2] === b[2][0]
+      }
+    }
+
     if (
-      (b[0][0] !== null && b[0][0] === b[0][1] && b[0][0] === b[0][2]) || // Row 1
-      (b[1][0] !== null && b[1][0] === b[1][1] && b[1][0] === b[1][2]) || // Row 2
-      (b[2][0] !== null && b[2][0] === b[2][1] && b[2][0] === b[2][2]) || // Row 3
-
-      (b[0][0] !== null && b[0][0] === b[1][0] && b[0][0] === b[2][0]) || // Column 1
-      (b[0][1] !== null && b[0][1] === b[1][1] && b[0][1] === b[2][1]) || // Column 2
-      (b[0][2] !== null && b[0][2] === b[1][2] && b[0][2] === b[2][2]) || // Column 3
-
-      (b[0][0] !== null && b[0][0] === b[1][1] && b[0][0] === b[2][2]) || // Diag. 159
-      (b[0][2] !== null && b[0][2] === b[1][1] && b[0][2] === b[2][0])    // Diag. 357
+      checkRow() ||
+      checkColumn() ||
+      checkDiagonal()
     ) {
       gameOver = true
     }
@@ -124,9 +139,9 @@ const Game = (function () {
   const gameLoop = function () {
     initialize()
     while (!gameOver) {
-      turn()
+      const location = turn()
       Board.displayBoard()
-      checkGameOver()
+      checkGameOver(location)
       changePlayersTurn()
     }
     alert(`Game Over!`)
