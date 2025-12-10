@@ -3,17 +3,30 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
 .cell {
   border: 1px solid black;
   width: 100px;
   height: 100px;
-  margin: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #gameBoard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: .5em;
+
+  height: 400px;
+  width: 400px;
+  margin: 0;
+
 }
