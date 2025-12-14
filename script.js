@@ -57,6 +57,7 @@ const Game = (function () {
   let playersTurn
   let gameOver
   let winner
+  // addEventListener for cells
 
   const boardLocation = (location) => {
     switch (location) {
@@ -83,9 +84,10 @@ const Game = (function () {
     }
   }
 
-  const initialize = (function () {
-    playerX = Player.create(prompt("Name of Player X"), "X")
-    playerO = Player.create(prompt("Name of Player O"), "O")
+  const initialize = (function () { 
+    
+    playerX = Player.create(prompt("Name of Player X"), "X") // Input before game
+    playerO = Player.create(prompt("Name of Player O"), "O") // Input before game
     playersTurn = playerX
     gameOver = false
     Board.reset()
@@ -94,9 +96,11 @@ const Game = (function () {
 
   const turn = function () {
     const mark = prompt(`${playersTurn.playerName}'s turn!\nWhat space do you want to mark with ${playersTurn.playerSign}`)
+    // HTML element for who's turn it is and to select a cell
     const location = boardLocation(mark)
     if (Board.isEmpty(location.row, location.column)) {
       Board.updateCell(location.row, location.column, playersTurn.playerSign)
+
     }
     return location
   }
@@ -131,7 +135,7 @@ const Game = (function () {
     ) {
       gameOver = true
       winner = playersTurn
-      alert(`${winner.playerName} Wins`)
+      alert(`${winner.playerName} Wins`) // HTML element to display winner
     }
   }
 
@@ -139,7 +143,7 @@ const Game = (function () {
     const marks = [...Board.getCurrentState()[0],...Board.getCurrentState()[1],...Board.getCurrentState()[2]]
     if (!marks.includes(null)) {
       gameOver = true
-      alert("Tie Game!")
+      alert("Tie Game!") // HTML element to display a tie game
     }
   }
 
