@@ -17,6 +17,8 @@ display: grid;
   display: flex;
   align-items: center;
   justify-content: center;
+  align-self: center;
+  justify-self: center;
 }
 
 #gameBoard {
@@ -24,6 +26,8 @@ display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   gap: .5em;
+  justify-self: center;
+  align-self: flex-start;
 
   height: 400px;
   width: 400px;
