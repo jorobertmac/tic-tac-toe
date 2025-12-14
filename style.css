@@ -34,3 +34,11 @@ display: grid;
   margin: 0;
 
 }
+
+.playerNames {
+  display: flex;
+  justify-content: center;
+}
+.playerName {
+  padding: 1em;
+}
